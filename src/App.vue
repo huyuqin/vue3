@@ -7,7 +7,13 @@
     <el-input v-model="queryInput" placeholder="请输入姓名搜索" />
      <el-button type="primary">增加</el-button>
   </div>
-  <el-table :data="tableData" style="width: 100%">
+  <el-table
+    ref="multipleTableRef"
+    :data="tableData"
+    style="width: 100%"
+    @selection-change="handleSelectionChange"
+  > border>
+    <el-table-column type="selection" width="55" />
     <el-table-column fixed prop="date" label="Date" width="150" />
     <el-table-column prop="name" label="Name" width="120" />
     <el-table-column prop="state" label="State" width="120" />
@@ -68,9 +74,13 @@ let tableData=ref([
     tag: 'Office',
   },
 ])
-
+let multipleSelection=ref()
 const handleRowClick = () => {
   console.log('click')
+}
+
+const handleSelectionChange = (val) => {
+  multipleSelection.value = val
 }
 </script>
 
@@ -82,5 +92,16 @@ const handleRowClick = () => {
   left: 50%;
   transform: translate(-50%,-50%);
 }
-</style>>
+.title{
+  text-align: center;
+}
+.query-box{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.el-input{
+  width: 200px;
+}
+</style>
 
